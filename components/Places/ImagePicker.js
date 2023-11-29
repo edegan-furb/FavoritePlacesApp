@@ -45,11 +45,11 @@ function ImagePicker() {
       aspect: [16, 9],
       quality: 0.5,
     });
+
     if (!image.canceled) {
       setPickedImage(image.assets[0].uri);
     }
   }
-
   let imagePreview = <Text>No image taken yet.</Text>;
 
   if (pickedImage) {
@@ -59,7 +59,7 @@ function ImagePicker() {
   return (
     <View>
       <View style={styles.imagePreview}>{imagePreview}</View>
-      <OutlinedButton icon={"camera"} onPress={takeImageHandler}>
+      <OutlinedButton icon="camera" onPress={takeImageHandler}>
         Take Image
       </OutlinedButton>
     </View>
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.primary100,
     borderRadius: 4,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
