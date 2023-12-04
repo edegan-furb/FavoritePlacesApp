@@ -1,46 +1,46 @@
 import { useCallback, useLayoutEffect, useState } from "react";
-import { Alert } from "react-native";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+
 import IconButton from "../components/UI/IconButton";
 
 function Map({ navigation }) {
-  const [selectLocation, setSelectLocation] = useState();
+  const [selectedLocation, setSelectedLocation] = useState();
 
   const region = {
-    latitude: -26.915474187267673,
-    longitude: -49.084535379431344,
-    latitudeDelta: 0.09,
-    longitudeDelta: 0.04,
+    latitude: 37.78,
+    longitude: -122.43,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   };
 
   function selectLocationHandler(event) {
-    //console.log(event);
     const lat = event.nativeEvent.coordinate.latitude;
     const lng = event.nativeEvent.coordinate.longitude;
 
-    setSelectLocation({ lat: lat, lng: lng });
+    setSelectedLocation({ lat: lat, lng: lng });
   }
 
   const savePickedLocationHandler = useCallback(() => {
-    if (!selectLocation) {
+    if (!selectedLocation) {
       Alert.alert(
-        "No location picked",
-        "Please pick a location by tapping on the map first"
+        "No location picked!",
+        "You have to pick a location (by tapping on the map) first!"
       );
       return;
     }
+
     navigation.navigate("AddPlace", {
-      pickedLat: selectLocation.lat,
-      pickedLng: selectLocation.lng,
+      pickedLat: selectedLocation.lat,
+      pickedLng: selectedLocation.lng,
     });
-  }, [navigation, selectLocation]);
+  }, [navigation, selectedLocation]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: ({ tintColor }) => (
         <IconButton
-          icon={"save"}
+          icon="save"
           size={24}
           color={tintColor}
           onPress={savePickedLocationHandler}
@@ -55,12 +55,12 @@ function Map({ navigation }) {
       initialRegion={region}
       onPress={selectLocationHandler}
     >
-      {selectLocation && (
+      {selectedLocation && (
         <Marker
           title="Picked Location"
           coordinate={{
-            latitude: selectLocation.lat,
-            longitude: selectLocation.lng,
+            latitude: selectedLocation.lat,
+            longitude: selectedLocation.lng,
           }}
         />
       )}

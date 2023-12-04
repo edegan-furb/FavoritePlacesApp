@@ -5,35 +5,35 @@ import {
   useForegroundPermissions,
   PermissionStatus,
 } from "expo-location";
-
-import { Colors } from "../../constants/colors";
-import OutlinedButton from "../UI/OutlinedButton";
-import { getAddress, getMapPreview } from "../../util/Location";
 import {
   useNavigation,
   useRoute,
   useIsFocused,
 } from "@react-navigation/native";
 
+import { Colors } from "../../constants/colors";
+import OutlinedButton from "../UI/OutlinedButton";
+import { getAddress, getMapPreview } from "../../util/Location";
+
 function LocationPicker({ onPickLocation }) {
   const [pickedLocation, setPickedLocation] = useState();
-  const IsFocused = useIsFocused();
-
-  const [locationPermissionInformation, requestPermission] =
-    useForegroundPermissions();
+  const isFocused = useIsFocused();
 
   const navigation = useNavigation();
   const route = useRoute();
 
+  const [locationPermissionInformation, requestPermission] =
+    useForegroundPermissions();
+
   useEffect(() => {
-    if (IsFocused && route.params) {
+    if (isFocused && route.params) {
       const mapPickedLocation = {
         lat: route.params.pickedLat,
         lng: route.params.pickedLng,
       };
       setPickedLocation(mapPickedLocation);
     }
-  }, [route, IsFocused]);
+  }, [route, isFocused]);
 
   useEffect(() => {
     async function handleLocation() {
@@ -68,6 +68,7 @@ function LocationPicker({ onPickLocation }) {
 
     return true;
   }
+
   async function getLocationHandler() {
     const hasPermission = await verifyPermissions();
 
@@ -91,8 +92,10 @@ function LocationPicker({ onPickLocation }) {
   if (pickedLocation) {
     locationPreview = (
       <Image
-        style={styles.mapPreviewImage}
-        source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }}
+        style={styles.image}
+        source={{
+          uri: getMapPreview(pickedLocation.lat, pickedLocation.lng),
+        }}
       />
     );
   }
@@ -130,8 +133,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  mapPreviewImage: {
+  image: {
     width: "100%",
     height: "100%",
+    // borderRadius: 4
   },
 });
