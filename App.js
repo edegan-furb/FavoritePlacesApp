@@ -1,45 +1,40 @@
+import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as SplashScreen from "expo-splash-screen";
+import AppLoading from "expo-app-loading";
 
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
 import Map from "./screens/Map";
-import { useCallback, useEffect, useState } from "react";
 import { init } from "./util/database";
+import PlaceDetails from "./screens/PlaceDetails";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [databaseIsReady, setDatabaseIsReady] = useState(false);
+  const [dbInitialized, setDbInitialized] = useState(false);
+
   useEffect(() => {
-    SplashScreen.preventAutoHideAsync();
     init()
       .then(() => {
-        setDatabaseIsReady(true);
+        setDbInitialized(true);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (databaseIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [databaseIsReady]);
-
-  if (!databaseIsReady) {
-    return null;
+  if (!dbInitialized) {
+    return <AppLoading />;
   }
 
   return (
     <>
-      <StatusBar style="auto" />
-      <NavigationContainer onReady={onLayoutRootView}>
+      <StatusBar style="dark" />
+      <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
             headerStyle: { backgroundColor: Colors.primary500 },
@@ -54,7 +49,7 @@ export default function App() {
               title: "Your Favorite Places",
               headerRight: ({ tintColor }) => (
                 <IconButton
-                  icon={"add"}
+                  icon="add"
                   size={24}
                   color={tintColor}
                   onPress={() => navigation.navigate("AddPlace")}
@@ -66,10 +61,17 @@ export default function App() {
             name="AddPlace"
             component={AddPlace}
             options={{
-              title: "Add a New Place",
+              title: "Add a new Place",
             }}
           />
           <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen
+            name="PlaceDetails"
+            component={PlaceDetails}
+            options={{
+              title: "Loading Place...",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

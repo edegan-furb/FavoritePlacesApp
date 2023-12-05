@@ -14,9 +14,10 @@ function AllPlaces({ route }) {
       const places = await fetchPlaces();
       setLoadedPlaces(places);
     }
+
     if (isFocused) {
       loadPlaces();
-      //setLoadedPlaces((curPlaces) => [...curPlaces, route.params.place]);
+      // setLoadedPlaces((curPlaces) => [...curPlaces, route.params.place]);
     }
   }, [isFocused]);
 
