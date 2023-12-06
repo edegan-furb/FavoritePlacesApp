@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
 
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
@@ -18,6 +18,7 @@ export default function App() {
   const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {
+    SplashScreen.preventAutoHideAsync();
     init()
       .then(() => {
         setDbInitialized(true);
@@ -27,14 +28,20 @@ export default function App() {
       });
   }, []);
 
+  const onLayoutRootView = useCallback(async () => {
+    if (dbInitialized) {
+      await SplashScreen.hideAsync();
+    }
+  }, [dbInitialized]);
+
   if (!dbInitialized) {
-    return <AppLoading />;
+    return null;
   }
 
   return (
     <>
       <StatusBar style="dark" />
-      <NavigationContainer>
+      <NavigationContainer onReady={onLayoutRootView}>
         <Stack.Navigator
           screenOptions={{
             headerStyle: { backgroundColor: Colors.primary500 },
