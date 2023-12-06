@@ -56,16 +56,16 @@ $ npx expo start
 > Places, AddPlace, PlaceDetails and Maps.
 <p align="center">
   <a>
-    <img src="https://github.com/edegan-furb/ExpenseTrackerApp/blob/master/assets/places.png" alt="Places" title="Places" height="500" width="250">
+    <img src="https://github.com/edegan-furb/FavoritePlacesApp/blob/master/assets/places.png" alt="Places" title="Places" height="500" width="250">
   </a>
   <a>
-    <img src="https://github.com/edegan-furb/ExpenseTrackerApp/blob/master/assets/addPlace.png" alt="AddPlace" title="AddPlace" height="500" width="250">
+    <img src="https://github.com/edegan-furb/FavoritePlacesApp/blob/master/assets/addPlace.png" alt="AddPlace" title="AddPlace" height="500" width="250">
   </a>
    <a>
-    <img src="https://github.com/edegan-furb/ExpenseTrackerApp/blob/master/assets/placeDetails.png" alt="PlaceDetails" title="PlaceDetails" height="500" width="250">
+    <img src="https://github.com/edegan-furb/FavoritePlacesApp/blob/master/assets/placeDetails.png" alt="PlaceDetails" title="PlaceDetails" height="500" width="250">
   </a>
    <a>
-    <img src="https://github.com/edegan-furb/ExpenseTrackerApp/blob/master/assets/maps.png" alt="Maps" title="Maps" height="500" width="250">
+    <img src="https://github.com/edegan-furb/FavoritePlacesApp/blob/master/assets/maps.png" alt="Maps" title="Maps" height="500" width="250">
   </a>
 </p>
 
