@@ -1,4 +1,4 @@
-# ExpenseTrackerApp
+# FavoritePlacesApp
  </p>
   <p>
   <a href="https://github.com/edegan-furb/FavoritePlacesApp/graphs/contributors">
